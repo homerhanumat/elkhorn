@@ -5,11 +5,11 @@ ui <- fluidPage(
   titlePanel("Adding a Sixth Point"),
   theme = shinytheme("cerulean"),
   sidebarPanel(
-    sliderInput("x", label = "x-coordinate of blue point",
-                min = 0, max = 20, value = 2, step = 0.1),
-    sliderInput("y", label = "y-coordinate of blue point",
+    withMathJax(sliderInput("x", label = "\\(x\\)-coordinate of blue point",
+                min = 0, max = 20, value = 2, step = 0.1)),
+    sliderInput("y", label = "\\(y\\)-coordinate of blue point",
                 min = 0, max = 20, value = 1, step = 0.1),
-    helpText("To see infromation about the slope of the regression line, ",
+    helpText("To see information about the slope \\(b\\) of the regression line, ",
              "enter your password below!"),
     textInput("password","Password")
   ),
@@ -72,7 +72,7 @@ server <- function (input, output) {
   
   output$tab <- renderTable({
     tab <- cbind(rv$xcurrent,rv$ycurrent,rv$sdx,rv$sdy,rv$zx,rv$zy,rv$zx*rv$zy)
-    colnames(tab) <- c("x","y","sd(x)","sd(y)","z_x","z_y","z_x * z_y")
+    colnames(tab) <- c("\\(x\\)","y","sd(x)","sd(y)","z_x","z_y","z_x * z_y")
     round(tab,2)
   })
   
