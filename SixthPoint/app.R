@@ -64,17 +64,25 @@ server <- function (input, output) {
                           round(modcoeffs[2],2))
     }
     plot(xold, yold, xlim = c(0,20), ylim = c(0,20), col = "red", pch = 19,
-         main = plotTitle)
+         main = plotTitle, xlab = "x", ylab = "y")
     points(rv$xblue, rv$yblue, col = "blue", cex = 2, pch = 19)
     abline(modcoeffs, lwd = 2)
     abline(4,0, lty = 2)
   }, height = 400, width = 500)
   
+#   output$tab <- renderUI(withMathJax(renderTable({
+#     tab <- cbind(rv$xcurrent,rv$ycurrent,rv$sdx,rv$sdy,rv$zx,rv$zy,rv$zx*rv$zy)
+#     colnames(tab) <- c("\\(x\\)","\\(y\\)","\\(s_x\\)",
+#                        "\\(s_y\\)","\\(z_x\\)","\\(z_y\\)","\\(z_xz_y\\)")
+#     round(tab,2)
+#   }, include.rownames = F)))
+  
   output$tab <- renderTable({
     tab <- cbind(rv$xcurrent,rv$ycurrent,rv$sdx,rv$sdy,rv$zx,rv$zy,rv$zx*rv$zy)
-    colnames(tab) <- c("\\(x\\)","y","sd(x)","sd(y)","z_x","z_y","z_x * z_y")
+    colnames(tab) <- c("x","y","s_x",
+                       "s_y","z_x","z_y","z_x * z_y")
     round(tab,2)
-  })
+  }, include.rownames = F)
   
 }
 
